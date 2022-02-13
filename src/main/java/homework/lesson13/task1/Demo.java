@@ -31,9 +31,6 @@ public class Demo {
         bookThird.setYear(1999);
         bookThird.setVendorCode(144);
 
-        bookThird.addRelatedBook(bookFirst);
-        bookThird.addRelatedBook(bookSecond);
-
         bookThird.addRelatedBookList(bookFirst);
         bookThird.addRelatedBookList(bookSecond);
 

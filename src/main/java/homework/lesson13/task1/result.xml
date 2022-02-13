@@ -2,31 +2,15 @@
 <Book vendorCode="144">
     <name>Harry Potter</name>
     <year>1999</year>
-    <relatedBooks>
-        <Book vendorCode="123">
-            <name>How important to be serious</name>
-            <year>1966</year>
-            <relatedBooks/>
-            <RelatedBooks/>
-        </Book>
-        <Book vendorCode="133">
-            <name>Gladiator</name>
-            <year>1987</year>
-            <relatedBooks/>
-            <RelatedBooks/>
-        </Book>
-    </relatedBooks>
     <RelatedBooks>
         <relatedBook vendorCode="123">
             <name>How important to be serious</name>
             <year>1966</year>
-            <relatedBooks/>
             <RelatedBooks/>
         </relatedBook>
         <relatedBook vendorCode="133">
             <name>Gladiator</name>
             <year>1987</year>
-            <relatedBooks/>
             <RelatedBooks/>
         </relatedBook>
     </RelatedBooks>

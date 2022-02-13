@@ -5,14 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "Book")
-@XmlType(propOrder = {"name", "vendorCode", "year", "relatedBooks", "relatedBookAsList"})
+@XmlType(propOrder = {"name", "vendorCode", "year", "relatedBookAsList"})
 public class Book {
     private int vendorCode;
     private String name;
     private int year;
-
-    @XmlElement(name = "relatedBooks")
-    private RelatedBooks relatedBooks = new RelatedBooks();
 
     @XmlElementWrapper(name="RelatedBooks")
     @XmlElement(name = "relatedBook")
@@ -41,14 +38,6 @@ public class Book {
 
     public void setYear(int year) {
         this.year = year;
-    }
-
-    public void addRelatedBook(Book book) {
-        relatedBooks.addBookToList(book);
-    }
-
-    public RelatedBooks getRelatedBooks() {
-        return relatedBooks;
     }
 
     public void addRelatedBookList(Book book) {
