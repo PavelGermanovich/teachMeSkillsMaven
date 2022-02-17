@@ -26,15 +26,10 @@ public class Demo {
         bookSecond.setYear(1987);
         bookSecond.setVendorCode(133);
 
-        Book bookThird = new Book();
-        bookThird.setName("Harry Potter");
-        bookThird.setYear(1999);
-        bookThird.setVendorCode(144);
+        bookFirst.addRelatedBookList(bookSecond);
+        bookSecond.addRelatedBookList(bookFirst);
 
-        bookThird.addRelatedBookList(bookFirst);
-        bookThird.addRelatedBookList(bookSecond);
-
-        convertBookToXml(bookThird);
+        convertBookToXml(bookSecond);
     }
 
     private static void convertBookToXml(Book book) throws JAXBException{
