@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
-public class SaveAsThread implements Runnable{
+public class SaveAsThread implements Runnable {
     private int[] array;
     private final Path filePathToWrite = Path.of("src/main/java/sessions/lesson14/task2/result.txt");
 
@@ -15,6 +15,7 @@ public class SaveAsThread implements Runnable{
         this.array = array;
     }
 
+    //toDo общий объект должен быть?
     public synchronized void writeArrayToFile() {
         File file = new File(String.valueOf(filePathToWrite));
         if (!file.exists()) {
