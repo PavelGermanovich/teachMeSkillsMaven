@@ -1,11 +1,17 @@
 package homework.lesson14.task2;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public class Good {
     private int id;
     private String name;
     private int price;
+    private static Comparator<Good> comparatorPriceAscending = (g1, g2) -> g1.getPrice() - g2.getPrice();
+
+    public static Comparator<Good> getComparatorPriceAscending() {
+        return comparatorPriceAscending;
+    }
 
     public Good(int id, String name, int price) {
         this.id = id;

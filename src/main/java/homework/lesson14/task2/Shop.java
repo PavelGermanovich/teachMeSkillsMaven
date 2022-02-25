@@ -1,10 +1,11 @@
 package homework.lesson14.task2;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Shop {
-    private HashMap<Integer, Good> goodsList = new HashMap<>();
+    private Map<Integer, Good> goodsList = new LinkedHashMap<>();
 
     public void addGoodsToShop(Good good) {
         if (goodsList.containsKey(good.getId())) {
@@ -23,8 +24,7 @@ public class Shop {
         if (goodsList.containsKey(goodId)) {
             goodsList.remove(goodId);
             System.out.println("Good removed, id " + goodId);
-        }
-        {
+        } else {
             System.out.println("There is no such good in the shop!!");
         }
     }
