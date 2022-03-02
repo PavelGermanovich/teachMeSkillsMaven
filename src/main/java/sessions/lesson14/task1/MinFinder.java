@@ -17,7 +17,9 @@ public class MinFinder implements Runnable {
     }
 
     public int findMin() {
-        return Arrays.stream(array).min().getAsInt();
+        return Arrays.stream(array)
+                .min()
+                .getAsInt();
     }
 
     public int getMin() {
