@@ -36,7 +36,7 @@ public class DbAdminService {
         User user = new User();
         try {
             user.setAge(resultSet.getInt("age"));
-            user.setName(login);
+            user.setLogin(login);
             user.setRoot(resultSet.getInt("root") == 1);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -44,5 +44,52 @@ public class DbAdminService {
         return user;
     }
 
-    public void updateUserService
+    public boolean isLoginExist(String loginToCheck) {
+        String sqlLogin = String.format("SELECT * FROM user WHERE login = %s", loginToCheck);
+        try {
+            return DbUtils.doRequest(sqlLogin).first();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    public void updateLoginOfTheExistingUser(String oldLogin, String newLogin) {
+        String query = String.format("UPDATE * FROM user WHERE login = %s SET login = %s", oldLogin, newLogin);
+        DbUtils.executeUpdate(query);
+    }
+
+    public boolean validatePassword(String login, String newPassword) {
+        String query = String.format("SELECT password FROM user WHERE login like %s", login);
+        String oldPassword = "";
+        try {
+            oldPassword = DbUtils.doRequest(query).getString("password");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return !oldPassword.equals(newPassword);
+    }
+
+    public void updatePassword(String login, String newPass) {
+        String query = String.format("UPDATE password FROM user WHERE login like %s SET password = %s", login, newPass);
+        DbUtils.executeUpdate(query);
+        System.out.println("Password was updated!");
+    }
+
+    public boolean validateAge(String login, int newAge) {
+        String query = String.format("SELECT age FROM user WHERE login like %s", login);
+        int oldAge = -1;
+        try {
+            oldAge = DbUtils.doRequest(query).getInt("age");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return !(oldAge == newAge);
+    }
+
+    public void updateAge(String login, int newAge) {
+        String query = String.format("UPDATE password FROM user WHERE login like %s SET age = %d", login, newAge);
+        DbUtils.executeUpdate(query);
+        System.out.println("Age was updated!");
+    }
 }

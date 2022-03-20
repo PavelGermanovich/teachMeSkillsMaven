@@ -1,7 +1,5 @@
 package homework.lesson20;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.Scanner;
 
 public class ConsoleApplication {
@@ -14,12 +12,12 @@ public class ConsoleApplication {
         String name = scanner.next();
         System.out.println("Input password");
         String password = scanner.next();
-        user.setName(name);
+        user.setLogin(name);
         user.setPassword(password);
     }
 
     public boolean validateLoginData() {
-        if (!adminService.validateLogin(user.getName())) {
+        if (!adminService.validateLogin(user.getLogin())) {
             System.out.println("user with such login does not exist, please enter correct credentials");
             return false;
         }
@@ -27,7 +25,7 @@ public class ConsoleApplication {
     }
 
     public boolean validateCredentials() {
-        if (!adminService.validateCredentials(user.getName(), user.getPassword())) {
+        if (!adminService.validateCredentials(user.getLogin(), user.getPassword())) {
             System.out.println("Incorrect password input, please correct!");
             return false;
         }
@@ -39,27 +37,29 @@ public class ConsoleApplication {
             inputLoginData();
         } while (validateLoginData() && validateCredentials());
         System.out.println("You are successfully logged in!");
-        user = adminService.getUserData(user.getName(), user.getPassword());
+        user = adminService.getUserData(user.getLogin(), user.getPassword());
     }
 
     public void startApplication() {
+        boolean exit = false;
+        do {
+            exit = !(selectOptionFromMainMenu() == 3);
+        } while (exit);
+    }
+
+    private int selectOptionFromMainMenu() {
         System.out.println("Welcome to console admin application!\nChoose option and type it:" +
                 "\n1) Login\n2) Register new user\n3)Exit");
         int option = new Scanner(System.in).nextInt();
         if (option == 1) {
             login();
-
+            UserApi userApi = new UserApi(user);
+            userApi.startUserApi();
+        } else  if (option == 2) {
+            //ToDo add registration
+        } else if (option == 3) {
+            System.out.println("Exit from the application");
         }
-    }
-
-    public void selectLoginOption() {
-        System.out.println("Select options\n1)Show logged user information \n2)Update user information" +
-                "\n3)Log out");
-        int option = new Scanner(System.in).nextInt();
-        if (option == 1) {
-            System.out.println(user);
-        } else if (option == 2) {
-
-        }
+        return option;
     }
 }

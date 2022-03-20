@@ -18,6 +18,7 @@ public class MysqlConnection {
                         "1234567890");
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
+                System.exit(0);
             }
         }
         return connection;
