@@ -1,10 +1,19 @@
 package homework.lesson20;
 
 public class User {
+    private int id;
     private boolean root;
     private String login;
     private int age;
     private String password;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public boolean isRoot() {
         return root;
@@ -41,9 +50,10 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "root=" + root +
-                ", name='" + login + '\'' +
+                "id=" + id +
+                ", root=" + root +
+                ", login='" + login + '\'' +
                 ", age=" + age +
-                '}';
+                "}\n";
     }
 }

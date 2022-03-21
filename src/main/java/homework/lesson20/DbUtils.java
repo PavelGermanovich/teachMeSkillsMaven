@@ -16,7 +16,6 @@ public class DbUtils {
     }
 
     public static int executeUpdate(String query) {
-        ResultSet resultSet = null;
         Connection connection = MysqlConnection.getMysqlConnection();
         try {
             Statement statement = connection.createStatement();

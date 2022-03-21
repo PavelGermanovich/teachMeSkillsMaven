@@ -35,7 +35,7 @@ public class ConsoleApplication {
     private void login() {
         do {
             inputLoginData();
-        } while (validateLoginData() && validateCredentials());
+        } while (!validateLoginData() || !validateCredentials());
         System.out.println("You are successfully logged in!");
         user = adminService.getUserData(user.getLogin(), user.getPassword());
     }
