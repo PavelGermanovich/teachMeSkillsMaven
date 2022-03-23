@@ -1,11 +1,10 @@
 package sessions.sesson21;
 
-import homework.lesson20.DbUtils;
+import utils.database.DbUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class BookstoreHandlerMysql implements BookStoreService {
 
@@ -117,10 +116,10 @@ public class BookstoreHandlerMysql implements BookStoreService {
         return -1;
     }
 
-    public List getBookByAuthor(String author) {
+    public ArrayList getBookByAuthor(String author) {
         String query = String.format("Select * from bookstore where author like '%s'", author);
         ResultSet rs = DbUtils.doRequest(query);
-        List<Book> books = new ArrayList<>();
+        ArrayList<Book> books = new ArrayList<>();
         try {
             while (rs.next()) {
                 Book bookFromDb = new Book();

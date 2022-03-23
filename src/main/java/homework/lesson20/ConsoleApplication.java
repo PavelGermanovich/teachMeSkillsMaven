@@ -17,7 +17,7 @@ public class ConsoleApplication {
     }
 
     public boolean validateLoginData() {
-        if (!adminService.validateLogin(user.getLogin())) {
+        if (!adminService.isLoginExist("sdf")) {
             System.out.println("user with such login does not exist, please enter correct credentials");
             return false;
         }
@@ -37,11 +37,11 @@ public class ConsoleApplication {
             inputLoginData();
         } while (!validateLoginData() || !validateCredentials());
         System.out.println("You are successfully logged in!");
-        user = adminService.getUserData(user.getLogin(), user.getPassword());
+        user = adminService.getUserData(user.getLogin());
     }
 
     public void startApplication() {
-        boolean exit = false;
+        boolean exit;
         do {
             exit = !(selectOptionFromMainMenu() == 3);
         } while (exit);
@@ -55,11 +55,29 @@ public class ConsoleApplication {
             login();
             UserApi userApi = new UserApi(user);
             userApi.startUserApi();
-        } else  if (option == 2) {
-            //ToDo add registration
+        } else if (option == 2) {
+            registerNewUser();
         } else if (option == 3) {
             System.out.println("Exit from the application");
         }
         return option;
+    }
+
+    private void registerNewUser() {
+        Scanner scanner = new Scanner(System.in);
+        User newUser = new User();
+        System.out.println("Input login");
+        newUser.setLogin(scanner.next());
+        System.out.println("Input password");
+        newUser.setPassword(scanner.next());
+        System.out.println("Set age");
+        newUser.setAge(scanner.nextInt());
+        if (adminService.isLoginExist(newUser.getLogin())) {
+            System.out.println("User with such login already registered!");
+        } else {
+            adminService.createNewUser(newUser);
+            newUser = adminService.getUserData(newUser.getLogin());
+            new UserApi(newUser).startUserApi();
+        }
     }
 }

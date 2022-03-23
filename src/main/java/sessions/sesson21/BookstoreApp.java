@@ -1,7 +1,7 @@
 package sessions.sesson21;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.System.out;
@@ -34,6 +34,11 @@ public class BookstoreApp {
             getByAuthor();
         } else if (option == 6) {
             getAllBooks();
+        } else if (option == 7){
+            return option;
+        } else {
+            out.println("Incorrect option selected!");
+            return option;
         }
         return option;
     }
@@ -95,7 +100,7 @@ public class BookstoreApp {
         out.println("Input author name");
         String author = scanner.nextLine();
         if (bookstoreHandler.isBookWithSuchAuthorExist(author)) {
-            List books = bookstoreHandler.getBookByAuthor(author);
+            ArrayList books = bookstoreHandler.getBookByAuthor(author);
             books.forEach(out::print);
         } else {
             out.println("There is no book with such author in store!");

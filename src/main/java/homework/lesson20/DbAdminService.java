@@ -1,24 +1,13 @@
 package homework.lesson20;
 
+import utils.database.DbUtils;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DbAdminService {
-    public boolean validateLogin(String login) {
-        String sqlLogin = String.format("SELECT * FROM user WHERE name like '%s'", login);
-        ResultSet resultSet = DbUtils.doRequest(sqlLogin);
-        try {
-            if (resultSet.next()) {
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     public boolean validateCredentials(String login, String password) {
         String sqlLogin = String.format("SELECT * FROM user WHERE name like '%s'", login);
         ResultSet resultSet = DbUtils.doRequest(sqlLogin);
@@ -32,9 +21,9 @@ public class DbAdminService {
         return false;
     }
 
-    public User getUserData(String login, String password) {
-        String sqlLogin = String.format("SELECT * FROM user WHERE name like '%s' AND password like '%s'",
-                login, password);
+    public User getUserData(String login) {
+        String sqlLogin = String.format("SELECT * FROM user WHERE name like '%s'",
+                login);
         ResultSet resultSet = DbUtils.doRequest(sqlLogin);
         User user = new User();
         try {
@@ -124,5 +113,15 @@ public class DbAdminService {
             System.out.println(e.getMessage());
         }
         return users;
+    }
+
+    public void createNewUser(User user) {
+        String query = String.format("Insert into user(name, password, age) values('%s','%s', %d)", user.getLogin(),
+                user.getPassword(), user.getAge());
+        if (DbUtils.executeUpdate(query) > 0) {
+            System.out.println("User was registered");
+        } else {
+            System.out.println("User was not registered");
+        }
     }
 }

@@ -25,7 +25,7 @@ public class UserApi {
             return selectRootOption();
         } else {
             out.println("Select options\n1)Show logged user information \n2)Update user information" +
-            "\n3)Log out\n4) Show all users information\n4) Exit");
+                    "\n3)Log out\n4)Exit");
             int option = new Scanner(System.in).nextInt();
             if (option == 1) {
                 out.println(user);
@@ -41,17 +41,17 @@ public class UserApi {
 
     private int selectRootOption() {
         System.out.println("Select options\n1)Show logged user information \n2)Update user information" +
-                "\n3)Log out\n4) Show all users information\n4) Exit");
+                "\n3)Log out\n4) Show all users information\n5) Exit");
         int option = new Scanner(System.in).nextInt();
         if (option == 1) {
             out.println(user);
         } else if (option == 2) {
             selectUpdateOptions();
+        } else if (option == 4) {
+            showAllUsersInfo();
         } else if (option == 5) {
             out.println("Application is closing");
             System.exit(0);
-        } else if (option == 4) {
-            showAllUsersInfo();
         }
         return option;
     }

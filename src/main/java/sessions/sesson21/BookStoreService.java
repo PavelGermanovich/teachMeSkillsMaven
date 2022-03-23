@@ -1,12 +1,12 @@
 package sessions.sesson21;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface BookStoreService {
     void addBookToStore(Book book);
     Book getBookByNumber(int number);
     void deleteBookByNumber(int number);
     int getCountBookByNumber(int number);
-    List getBookByAuthor(String author);
+    ArrayList<Book> getBookByAuthor(String author);
     int getCountOfAllBooks();
 }
