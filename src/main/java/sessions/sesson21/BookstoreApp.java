@@ -1,16 +1,17 @@
 package sessions.sesson21;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.System.out;
 
 public class BookstoreApp {
-    private BookstoreHandler bookstoreHandler = new BookstoreHandler();
+    private BookstoreHandlerMysql bookstoreHandler = new BookstoreHandlerMysql();
     private Scanner scanner = new Scanner(System.in);
 
     public void startApp() {
-        int i = -1;
+        int i;
         do {
             i = selectOption();
         } while (i != 7);
@@ -20,7 +21,7 @@ public class BookstoreApp {
         out.println("Welcome to the bookstore application here the options:" +
                 "\n1) Add book \n2) Get book by number \n3) Delete book by number " +
                 "\n4) Get count by number \n5) Get by author \n6) get count all books \n7) Exit");
-        int option = new Scanner(System.in).nextInt();
+        int option = validateInputNumber();
         if (option == 1) {
             addBook();
         } else if (option == 2) {
@@ -43,13 +44,13 @@ public class BookstoreApp {
             Scanner scanner = new Scanner(System.in);
             out.println("Input book info for adding");
             out.println("Input book name");
-            bookToAdd.setName(scanner.next());
+            bookToAdd.setName(scanner.nextLine());
             out.println("Input book number");
-            bookToAdd.setNumber(scanner.nextInt());
+            bookToAdd.setNumber(validateInputNumber());
             out.println("Input author");
-            bookToAdd.setAuthor(scanner.next());
+            bookToAdd.setAuthor(scanner.nextLine());
             out.println("Input book count");
-            bookToAdd.setCount(scanner.nextInt());
+            bookToAdd.setCount(validateInputNumber());
         } while (!bookstoreHandler.isBookValid(bookToAdd));
         bookstoreHandler.addBookToStore(bookToAdd);
         out.println(bookToAdd);
@@ -57,9 +58,9 @@ public class BookstoreApp {
 
     private void getBookByNumber() {
         out.println("Input book number");
-        int bookNumber = scanner.nextInt();
+        int bookNumber = validateInputNumber();
         if (bookstoreHandler.isBookExistInStore(bookNumber)) {
-            Book book = bookstoreHandler.getBookByNumber(scanner.nextInt());
+            Book book = bookstoreHandler.getBookByNumber(bookNumber);
             out.println("Book was returned:\n" + book);
         } else {
             out.println("There is no book with such number in the store!");
@@ -68,10 +69,10 @@ public class BookstoreApp {
 
     private void deleteBookByNumber() {
         out.println("Input number of the book to delete");
-        int bookNumber = scanner.nextInt();
+        int bookNumber = validateInputNumber();
         if (bookstoreHandler.isBookExistInStore(bookNumber)) {
             if (bookstoreHandler.isBookCountNotZero(bookNumber)) {
-                bookstoreHandler.deleteBookByNumber(scanner.nextInt());
+                bookstoreHandler.deleteBookByNumber(bookNumber);
             } else {
                 out.println("Such book exist in store, but count less than 1");
             }
@@ -82,7 +83,7 @@ public class BookstoreApp {
 
     private void getCountByNumber() {
         out.println("Input book number");
-        int count = bookstoreHandler.getCountBookByNumber(scanner.nextInt());
+        int count = bookstoreHandler.getCountBookByNumber(validateInputNumber());
         if (count >= 0) {
             out.println("count of such books is " + count);
         } else {
@@ -92,7 +93,7 @@ public class BookstoreApp {
 
     private void getByAuthor() {
         out.println("Input author name");
-        String author = scanner.next();
+        String author = scanner.nextLine();
         if (bookstoreHandler.isBookWithSuchAuthorExist(author)) {
             List books = bookstoreHandler.getBookByAuthor(author);
             books.forEach(out::print);
@@ -103,5 +104,18 @@ public class BookstoreApp {
 
     private void getAllBooks() {
         out.println("All books count is " + bookstoreHandler.getCountOfAllBooks());
+    }
+
+    private int validateInputNumber() {
+        int result = -1;
+        do {
+            try {
+                Scanner scanner = new Scanner(System.in);
+                result = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                out.println("Incorrect symbol, please input digit");
+            }
+        } while (result == -1);
+        return result;
     }
 }

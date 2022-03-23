@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookstoreHandler implements BookStoreService{
+public class BookstoreHandlerMysql implements BookStoreService {
 
     public boolean isBookValid(Book book) {
         if (isBookExistInStore(book.getNumber())) {
