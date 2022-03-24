@@ -1,4 +1,4 @@
-package sessions.sesson21;
+package sessions.session21;
 
 import utils.database.DbUtils;
 

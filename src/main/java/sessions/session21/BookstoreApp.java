@@ -1,4 +1,4 @@
-package sessions.sesson21;
+package sessions.session21;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
